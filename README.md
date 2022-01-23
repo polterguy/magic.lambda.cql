@@ -14,8 +14,8 @@ The project contains the following slots.
 The basic idea of the slots are to allow for things such as follows.
 
 ```
-cql.connect:[generic|magic]
-   cql.select:"select * from files where cloudlet = 'foo/bar' and folder = '/etc/' and filename like 'howdy%'"
+cql.connect:[generic|space]
+   cql.select:"select * from table where column = 'foo/bar'"
 ```
 
 Where the `generic` parts above is a reference to a cluster you'll have to configure in your _"appsettings.json"_,
