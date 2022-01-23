@@ -9,18 +9,18 @@ for instance Cassandra or ScyllaDB.
 The project contains the following slots.
 
 * __[cql.connect]__ - Creates a session towards a CQL cluster
-* __[cql.execute]__ - Executes some CQL statement towards a previously opened session and returns the result to caller
+* __[cql.execute]__ - Executes some CQL statement towards an open session and returns the result to caller
 
-The basic idea of the slots are to allow for this such as follows.
+The basic idea of the slots are to allow for things such as follows.
 
 ```
 cql.connect:[generic|magic]
    cql.select:"select * from files where cloudlet = 'foo/bar' and folder = '/etc/' and filename like 'howdy%'"
 ```
 
-Where the `generic` parts above is a reference to a cluster, you'll have to configure in your _"appsettings.json"_,
+Where the `generic` parts above is a reference to a cluster you'll have to configure in your _"appsettings.json"_,
 while the `magic` parts above is a keyspace within that cluster. In such a regard the slots resembles the generic
-RDBMS slots in usage, except of course it open a connection towards a NoSQL database such as Cassandra or ScyllaDB,
+RDBMS slots in usage, except of course it opens a connection towards a NoSQL database such as Cassandra or ScyllaDB,
 and returns the result of executing your SQL towards a keyspace within that cluster.
 
 ## Configuration
@@ -39,7 +39,8 @@ The primary configuration for the project to apply for your _"appsettings.json"_
 }
 ```
 
-The above configures the adapter to use `127.0.0.1` as the host for your contact point or cluster.
+The above configures the adapter to use `127.0.0.1` as the host for your `generic` contact point or cluster.
+You can add as many cluster connection points as you want to, and reference these using their unique names.
 
 ## Project website
 
