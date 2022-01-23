@@ -1,0 +1,26 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: sonarscan-dotnet
+        uses: highbyte/sonarscan-dotnet@v2.1.2
+        with:
+          sonarProjectKey: polterguy_${{ github.event.repository.name }}
+          sonarProjectName:  ${{ github.event.repository.name }}
+          sonarOrganization: polterguy
+          dotnetBuildArguments: ./${{ github.event.repository.name }}/${{ github.event.repository.name }}.csproj
+          dotnetDisableTests: true
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
