@@ -19,7 +19,7 @@ cql.connect:[generic|space]
 ```
 
 Where the `generic` parts above is a reference to a cluster you'll have to configure in your _"appsettings.json"_,
-while the `magic` parts above is a keyspace within that cluster. In such a regard the slots resembles the generic
+while the `space` parts above is a keyspace within that cluster. In such a regard the slots resembles the generic
 RDBMS slots in usage, except of course it opens a connection towards a NoSQL database such as Cassandra or ScyllaDB,
 and returns the result of executing your SQL towards a keyspace within that cluster.
 
