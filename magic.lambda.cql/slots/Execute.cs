@@ -3,6 +3,7 @@
  */
 
 using System.Linq;
+using System.Collections;
 using System.Threading.Tasks;
 using Cassandra;
 using magic.node;
@@ -45,10 +46,38 @@ namespace magic.lambda.cql.slots
                 var cur = new Node(".");
                 for (var idxNo = 0; idxNo < idx.Length; idxNo++)
                 {
-                    cur.Add(new Node(rowSet.Columns[idxNo].Name, idx[idxNo]));
+                    var value = Convert(idx[idxNo]);
+                    if (value is Node node)
+                        cur.Add(new Node(rowSet.Columns[idxNo].Name, null, node.Children.ToList()));
+                    else
+                        cur.Add(new Node(rowSet.Columns[idxNo].Name, value));
                 }
                 input.Add(cur);
             }
         }
+
+        #region [ -- Private helper methods -- ]
+
+        /*
+         * Helper method to convert raw objects returned from NoSQL storage to something
+         * we can intelligently handle in Hyperlambda.
+         */
+        static object Convert(object value)
+        {
+            if (value == null)
+                return null;
+            if (value is IDictionary dictionary)
+            {
+                var result = new Node();
+                foreach (string idx in dictionary.Keys)
+                {
+                    result.Add(new Node(idx, dictionary[idx]));
+                }
+                return result;
+            }
+            return value;
+        }
+
+        #endregion
     }
 }
