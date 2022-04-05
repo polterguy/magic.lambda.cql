@@ -2,14 +2,11 @@
  * Magic Cloud, copyright Aista, Ltd. See the attached LICENSE file for details.
  */
 
-using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Configuration;
 using Cassandra;
 using magic.node;
-using magic.node.contracts;
 using magic.node.extensions;
 
 namespace magic.lambda.cql.helpers
